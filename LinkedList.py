@@ -36,11 +36,20 @@ class LinkedList(object):
         
         new_node.next = self.head
         self.head = new_node
+
+    def insert(self,prev,data):
+        if not prev:
+            print("No Node with {} Found".format(prev))
+            return
+        new_node = Node(data)
+
+        new_node.next = prev.next
+        prev.next = new_node
         
 a = LinkedList()
 a.append("LAX")
 a.append("LGB")
 a.append("JFK")
-a.printList()
 a.prepend("SFO")
+a.insert(a.head.next,"MSO")
 a.printList()
