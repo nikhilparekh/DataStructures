@@ -60,15 +60,63 @@ class LinkedList(object):
         if cur_node == None:
             return
         prev_node.next = cur_node.next
-        cur_node.next = None
+        cur_node = None
     
+    def del_position(self,index):
+        cur_node = self.head
+        if(index==0):
+            self.head = cur_node.next
+            cur_node = None
+        else:
+            for i in range(index):
+                prev_node = cur_node
+                cur_node = cur_node.next
+            prev_node.next = cur_node.next         
+            cur_node = None  
+
+    # def swap(self,element1, element2):
+    #     prev1 = None
+    #     prev2 = None
+    #     cur1 = self.head
+    #     cur2 = self.head
+    #     while(cur1 and cur1.data!=element1):
+    #         prev1 = cur1
+    #         cur1 = cur1.next
+    #     while(cur2 and cur2.data!=element2):
+    #         prev2 = cur2
+    #         cur2 = cur2.next
+
+    #     if not cur1 or not cur2:
+    #         return
+    #     if prev1:
+    #         prev1.next = cur2
+    #     cur2.next = cur1.next
+    #     prev2.next = cur1
+    #     cur1.next = 
+
+# A -> B -> C -> D -> 0
+# D -> C -> B -> A -> 0
+
+    def rev(self):
+        prev = None
+        cur_node = self.head
+        while cur_node: #eg : cur_node = B
+            nxt = cur_node.next #nxt = C
+            cur_node.next = prev # B -> A
+            prev = cur_node # prev = B
+            cur_node = nxt # cur_node = C
+        self.head = prev
         
+            
+
+
+
+
         
 a = LinkedList()
 a.append("LAX")
 a.append("LGB")
 a.append("JFK")
 a.prepend("SFO")
-a.insert(a.head.next,"MSO")
 a.delete("LON")
 a.printList()
