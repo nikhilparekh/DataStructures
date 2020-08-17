@@ -4,6 +4,30 @@ class Node(object):
         self.left = None
         self.right = None
         
+class Queue(object):
+    def __init__(self):
+        self.items = []
+
+    def enqueue(self,value):
+        self.items.insert(0,value)
+
+    def dequeue(self):
+        if self.is_empty():
+            return
+        return self.items.pop()
+    
+    def is_empty(self):
+        return self.items==[]
+    
+    def peek(self):
+        if not self.is_empty():
+            return self.items[-1].data
+        
+    def size(self):
+        return len(self.items)
+    
+
+
 
 class BinaryTree(object):
     def __init__(self,root):
@@ -16,6 +40,8 @@ class BinaryTree(object):
             return self.inorder(tree.root,"")
         elif(Traversal_type=='postorder'):
             return self.postorder(tree.root,"")
+        elif(Traversal_type=="levelorder"):
+            return self.levelorder(tree.root)
 
     def preorder(self,start,traversal):
         if start:
@@ -38,6 +64,25 @@ class BinaryTree(object):
             traversal += (str(start.data)+" - ")
         return traversal
 
+    def levelorder(self,start):
+        if start is None:
+            return
+        queue = Queue()
+        queue.enqueue(start)
+        traversal = ''
+        while(queue.size()>0):
+            traversal+=(str(queue.peek())+" - ")
+            node = queue.dequeue()
+            if node.left:
+                queue.enqueue(node.left)
+            if node.right:
+                queue.enqueue(node.right)
+        return traversal
+
+
+
+
+
 #setting up tree
 tree = BinaryTree("F")
 tree.root.left = Node("B")
@@ -52,3 +97,4 @@ tree.root.right.right.left = Node("H")
 print(tree.printTree("preorder"))
 print(tree.printTree("inorder"))
 print(tree.printTree("postorder"))
+print(tree.printTree("levelorder"))
