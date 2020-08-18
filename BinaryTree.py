@@ -32,7 +32,7 @@ class Stack(object):
             return self.pop()
     
     def peek(self):
-        return arr[-1].value
+        return self.arr[-1].value
 
     def size(self):
         return len(self.arr)
@@ -127,6 +127,16 @@ class BinaryTree(object):
             while start!=None:
                 start = start.right
             start = t
+
+    def height(self,node):
+        if node == None:
+            return -1
+        left_height = self.height(node.left)
+        right_height = self.height(node.right)
+        
+        return 1+max(left_height,right_height)
+
+
                 
 
 
@@ -150,3 +160,4 @@ print(tree.printTree("preorder"))
 print(tree.printTree("inorder"))
 print(tree.printTree("postorder"))
 print(tree.printTree("levelorder"))
+print(tree.height(tree.root))
