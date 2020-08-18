@@ -1,9 +1,3 @@
-class Node(object):
-    def __init__(self,data):
-        self.data = data
-        self.left = None
-        self.right = None
-        
 class Queue(object):
     def __init__(self):
         self.items = []
@@ -25,13 +19,38 @@ class Queue(object):
         
     def size(self):
         return len(self.items)
+
+class Stack(object):
+    def __init__(self):
+        self.arr =[]
+    
+    def push(self,data):
+        self.arr.append(data)
+    
+    def pop(self):
+        if not self.is_empty():
+            return self.pop()
+    
+    def peek(self):
+        return arr[-1].value
+
+    def size(self):
+        return len(self.arr)
+    
+    def is_empty(self):
+        self.arr == []
     
 
-
-
+class Node(object):
+    def __init__(self,data):
+        self.data = data
+        self.left = None
+        self.right = None
+        
 class BinaryTree(object):
     def __init__(self,root):
         self.root = Node(root)
+        
     
     def printTree(self,Traversal_type):
         if(Traversal_type=="preorder"):
@@ -79,14 +98,47 @@ class BinaryTree(object):
                 queue.enqueue(node.right)
         return traversal
 
+    def reverseorder(self,start):
+        stack = Stack()
+        stack.push(start)
+        if start.left:
+            self.reverseorder(start.left)
+        if start.right:
+            self.reverseorder(start.right)
+
+    def insertLeft(self,newNode):
+        start = self.root
+        t = Node(newNode)
+        if(start.left==None):
+            start.left = t
+        else:
+            temp = start.left
+            while temp!=None:
+                temp = temp.left
+            temp = t
+
+    def insertRight(self,newNode):
+        t = Node(newNode)
+        start = self.root
+        if start.right is None:
+            start.right = t
+        else:
+            # temp = start.right
+            while start!=None:
+                start = start.right
+            start = t
+                
+
 
 
 
 
 #setting up tree
 tree = BinaryTree("F")
-tree.root.left = Node("B")
-tree.root.right = Node("G")
+# tree.root.left = Node("B")
+tree.insertLeft("B")
+# tree.root.right = Node("G")
+tree.insertRight("G")
 tree.root.left.left = Node("A")
 tree.root.left.right = Node("D")
 tree.root.left.right.left = Node("C")
