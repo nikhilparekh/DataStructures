@@ -54,13 +54,17 @@ class BinaryTree(object):
     
     def printTree(self,Traversal_type):
         if(Traversal_type=="preorder"):
-            return self.preorder(tree.root,"")
+            return self.preorder(self.root,"")
         elif(Traversal_type=='inorder'):
-            return self.inorder(tree.root,"")
+            return self.inorder(self.root,"")
         elif(Traversal_type=='postorder'):
-            return self.postorder(tree.root,"")
+            return self.postorder(self.root,"")
         elif(Traversal_type=="levelorder"):
-            return self.levelorder(tree.root)
+            return self.levelorder(self.root)
+        elif(Traversal_type=="it_inorder"):
+            return self.it_inorder(self.root)
+        elif(Traversal_type=='it_preorder'):
+            return self.it_preoder(self.root)
 
     def preorder(self,start,traversal):
         if start:
@@ -98,6 +102,44 @@ class BinaryTree(object):
                 queue.enqueue(node.right)
         return traversal
 
+    def it_preoder(self,start):
+        stack = []
+        res = []
+        while True:
+            if start:
+                stack.insert(0,start)
+                # print(stack[0].data)
+                start = start.left
+            elif not stack:
+                break
+            else:
+                temp = stack.pop()
+                res.append(temp.data)
+                start = temp.right
+            
+        return res
+
+    def it_inorder(self,start):
+        stack = []
+        # stack.append(start)
+        res = []
+        while True:
+            if start:
+                stack.append(start)
+                start = start.left
+                # print("1")
+            elif not stack:
+                break
+            else:
+                temp = stack.pop()
+                res.append(temp.data)
+                start = temp.right
+                # stack.append(start)
+            
+        return res
+
+
+
     def reverseorder(self,start):
         stack = Stack()
         stack.push(start)
@@ -131,11 +173,26 @@ class BinaryTree(object):
     def height(self,node):
         if node == None:
             return -1
+        
         left_height = self.height(node.left)
         right_height = self.height(node.right)
+        # print(left_height,right_height)
         
         return 1+max(left_height,right_height)
 
+    # def size(self,node):
+    #     if node == None:
+    #         return 0
+    #     stack = []
+    #     stack.append(node)
+    #     total = 1
+    #     while(len(stack)>0):
+    #         if node.left:
+    #             node = node.left
+    #             total+=1
+    #         if node.ri
+
+    
 
                 
 
@@ -144,20 +201,31 @@ class BinaryTree(object):
 
 
 #setting up tree
-tree = BinaryTree("F")
-# tree.root.left = Node("B")
-tree.insertLeft("B")
-# tree.root.right = Node("G")
-tree.insertRight("G")
-tree.root.left.left = Node("A")
-tree.root.left.right = Node("D")
-tree.root.left.right.left = Node("C")
-tree.root.left.right.right = Node("E")
-tree.root.right.right = Node("I")
-tree.root.right.right.left = Node("H")
-    
-print(tree.printTree("preorder"))
-print(tree.printTree("inorder"))
-print(tree.printTree("postorder"))
-print(tree.printTree("levelorder"))
-print(tree.height(tree.root))
+# tree = BinaryTree("F")
+# # tree.root.left = Node("B")
+# tree.insertLeft("B")
+# # tree.root.right = Node("G")
+# tree.insertRight("G")
+# tree.root.left.left = Node("A")
+# tree.root.left.right = Node("D")
+# tree.root.left.right.left = Node("C")
+# tree.root.left.right.right = Node("E")
+# tree.root.right.right = Node("I")
+# tree.root.right.right.left = Node("H")
+
+tree1 = BinaryTree(10)
+tree1.root.left = Node(11)
+tree1.root.right = Node(16)
+tree1.root.left.left = Node(2)
+tree1.root.left.right = Node(-1)
+tree1.root.right.left = Node(10)
+tree1.root.right.left.left = Node(9)
+tree1.root.right.left.right = Node(11)
+print(tree1.printTree("preorder"))
+print(tree1.printTree("it_preorder"))
+print(tree1.printTree("inorder"))
+# print(tree.printTree("postorder"))
+print(tree1.printTree("levelorder"))
+# print(tree.height(tree.root))
+# print(tree.size(tree.root,0))
+print(tree1.printTree("it_inorder"))
